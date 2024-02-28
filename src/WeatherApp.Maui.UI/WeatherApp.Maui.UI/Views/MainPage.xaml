@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<uranium:UraniumContentPage x:Class="WeatherApp.Maui.UI.Views.MainPage"
+                            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+                            xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+                            xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+                            xmlns:viewmodels="clr-namespace:WeatherApp.Maui.UI.ViewModels"
+                            x:DataType="viewmodels:MainPageViewModel"
+                            BackgroundColor="{StaticResource Surface}"
+                            NavigationPage.HasNavigationBar="False">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,*"
+          RowSpacing="12">
+        <VerticalStackLayout Spacing="4">
+            <Label FontFamily="RobotoSemibold"
+                   FontSize="16"
+                   Text="Hello Human," />
+            <Label FontFamily="RobotoSemibold"
+                   FontSize="16"
+                   Text="Discover the weather" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Border Margin="0"
+                    Padding="12"
+                    BackgroundColor="{StaticResource PrimaryContainer}"
+                    HeightRequest="120"
+                    Stroke="{StaticResource PrimaryContainer}"
+                    StrokeShape="RoundRectangle 20">
+                <Grid>
+                    <VerticalStackLayout>
+                        <Label FontFamily="RobotoRegular"
+                               FontSize="14"
+                               Text="Current Location"
+                               TextColor="{StaticResource OnPrimaryContainer}" />
+                        <Label FontFamily="RobotoSemibold"
+                               FontSize="24"
+                               Text="Manila"
+                               TextColor="{StaticResource OnPrimaryContainer}" />
+
+                    </VerticalStackLayout>
+
+                    <Grid VerticalOptions="End">
+                        <Label FontFamily="RobotoRegular"
+                               FontSize="14"
+                               Text="Thunder"
+                               TextColor="{StaticResource OnPrimaryContainer}" />
+
+                        <Label FontFamily="RobotoRegular"
+                               FontSize="14"
+                               HorizontalOptions="End"
+                               Text="20C"
+                               TextColor="{StaticResource OnPrimaryContainer}" />
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+        </VerticalStackLayout>
+
+        <Grid Grid.Row="2"
+              RowDefinitions="Auto,*"
+              RowSpacing="12">
+            <Label FontFamily="RobotoSemibold"
+                   FontSize="16"
+                   Text="Around the world" />
+        </Grid>
+    </Grid>
+</uranium:UraniumContentPage>

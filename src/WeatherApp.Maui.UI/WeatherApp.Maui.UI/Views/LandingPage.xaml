@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="WeatherApp.Maui.UI.Views.LandingPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+             xmlns:viewmodels="clr-namespace:WeatherApp.Maui.UI.ViewModels"
+             x:DataType="viewmodels:LandingPageViewModel"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <Image Aspect="AspectFill"
+               Source="landing_bg.jpg" />
+
+        <Border Margin="20,0"
+                Padding="0"
+                BackgroundColor="{StaticResource Surface}"
+                MaximumWidthRequest="{OnIdiom Tablet=400,
+                                              Desktop=400,
+                                              Default=9999}"
+                StrokeShape="RoundRectangle 20,20,0,0"
+                StrokeThickness="1"
+                VerticalOptions="End">
+
+            <VerticalStackLayout Margin="20"
+                                 Spacing="12">
+                <Label FontFamily="RobotoBold"
+                       FontSize="18"
+                       HorizontalTextAlignment="Center"
+                       LineHeight="1.2"
+                       Text="Explore global map of wind, weather, and ocean conditions"
+                       TextColor="{StaticResource OnSurface}" />
+
+                <Label Margin="20,0"
+                       FontFamily="RobotoRegular"
+                       FontSize="12"
+                       HorizontalTextAlignment="Center"
+                       Text="Planning your trip become more easier with ideate weather app. You can instantly see the whole world weather within few seconds."
+                       TextColor="{StaticResource OnSurface}" />
+
+                <material:ButtonView BackgroundColor="{StaticResource PrimaryContainer}"
+                                     HeightRequest="44"
+                                     TappedCommand="{Binding GetStartedCommand}">
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="4">
+
+                        <Label FontFamily="RobotoSemibold"
+                               Text="GET STARTED"
+                               TextColor="{StaticResource OnPrimaryContainer}"
+                               VerticalTextAlignment="Center" />
+
+                    </HorizontalStackLayout>
+                </material:ButtonView>
+
+
+            </VerticalStackLayout>
+        </Border>
+
+
+    </Grid>
+</ContentPage>
