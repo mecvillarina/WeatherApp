@@ -1,7 +1,7 @@
-using Poc.Domain.Persistence;
-using Poc.Maui.Services.Persistence;
+using WeatherApp.Domain.Persistence;
+using WeatherApp.Maui.Services.Persistence;
 
-namespace Poc.Maui.Services.Modules;
+namespace WeatherApp.Maui.Services.Modules;
 
 public class PersistenceModule : IModule
 {
@@ -13,6 +13,6 @@ public class PersistenceModule : IModule
     public void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterSingleton<IAppDatabase, AppDatabase>();
-        containerRegistry.RegisterSingleton<INudgeRepository, NudgeRepository>();
+        containerRegistry.RegisterSingleton<IWeatherRepository, WeatherRepository>();
     }
 }

@@ -1,10 +1,10 @@
 ﻿using SQLite;
-using Poc.Common.Constants;
-using Poc.Domain.Persistence;
-using Poc.Models.Entities;
+using WeatherApp.Common.Constants;
 using System.Linq.Expressions;
+using WeatherApp.Models.Entities;
+using WeatherApp.Domain.Persistence;
 
-namespace Poc.Maui.Services.Persistence;
+namespace WeatherApp.Maui.Services.Persistence;
 
 public class MobileDatabase : IMobileDatabase
 {

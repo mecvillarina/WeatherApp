@@ -21,7 +21,7 @@
     <PackageReference Include="Mapster.DependencyInjection" Version="1.0.2-pre01" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-    <PackageReference Include="Prism.DryIoc.Maui" Version="9.0.271-pre" />
+    <PackageReference Include="Prism.DryIoc.Maui" Version="9.0.401-pre" />
     <PackageReference Include="Refit" Version="7.0.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
@@ -29,6 +29,13 @@
     <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.4" />
     <PackageReference Include="SQLitePCLRaw.provider.sqlcipher" Version="2.1.4" />
     <PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\WeatherApp.Common\WeatherApp.Common.csproj" />
+	  <ProjectReference Include="..\WeatherApp.Domain\WeatherApp.Domain.csproj" />
+	  <ProjectReference Include="..\WeatherApp.Maui.Domain\WeatherApp.Maui.Domain.csproj" />
+	  <ProjectReference Include="..\WeatherApp.Models\WeatherApp.Models.csproj" />
 	</ItemGroup>
 
 </Project>

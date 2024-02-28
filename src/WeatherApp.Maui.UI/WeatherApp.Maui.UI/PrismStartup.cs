@@ -1,3 +1,4 @@
+using WeatherApp.Maui.Services.Modules;
 using WeatherApp.Maui.UI.ViewModels;
 using WeatherApp.Maui.UI.Views;
 
@@ -30,8 +31,6 @@ internal static class PrismStartup
 
     private static void RegisterServices(this IContainerRegistry containerRegistry)
     {
-        containerRegistry.RegisterInstance(Connectivity.Current);
-
 #if ANDROID
 #endif
 
@@ -46,10 +45,10 @@ internal static class PrismStartup
 
     private static void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
     {
-        //moduleCatalog
-        //    .AddModule<PersistenceModule>()
-        //    .AddModule<MauiServicesModule>()
-        //    .AddModule<ServicesModule>()
-        //    .AddModule<WebModule>();
+        moduleCatalog
+            .AddModule<PersistenceModule>()
+            .AddModule<MauiServicesModule>()
+            .AddModule<ServicesModule>()
+            .AddModule<WebModule>();
     }
 }

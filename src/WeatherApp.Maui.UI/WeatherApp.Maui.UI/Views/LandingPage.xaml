@@ -14,12 +14,12 @@
         <Image Aspect="AspectFill"
                Source="landing_bg.jpg" />
 
-        <Border Margin="20,0"
+        <Border Margin="{OnIdiom Default='0,0',
+                                 Phone='20,0'}"
                 Padding="0"
                 BackgroundColor="{StaticResource Surface}"
-                MaximumWidthRequest="{OnIdiom Tablet=400,
-                                              Desktop=400,
-                                              Default=9999}"
+                MaximumWidthRequest="{OnIdiom Default=400,
+                                              Phone=9999}"
                 StrokeShape="RoundRectangle 20,20,0,0"
                 StrokeThickness="1"
                 VerticalOptions="End">

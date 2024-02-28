@@ -1,4 +1,4 @@
-﻿namespace Poc.Maui.Services.Modules;
+﻿namespace WeatherApp.Maui.Services.Modules;
 
 public class MauiServicesModule : IModule
 {
@@ -14,5 +14,7 @@ public class MauiServicesModule : IModule
         containerRegistry.RegisterInstance(Connectivity.Current);
         containerRegistry.RegisterInstance(Clipboard.Default);
         containerRegistry.RegisterInstance(AppInfo.Current);
+        containerRegistry.RegisterInstance(Geolocation.Default);
+        containerRegistry.RegisterInstance(Geocoding.Default);
     }
 }

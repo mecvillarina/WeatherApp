@@ -5,11 +5,21 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherApp.Maui.UI", "WeatherApp.Maui.UI\WeatherApp.Maui.UI\WeatherApp.Maui.UI.csproj", "{5F5FFCEB-FA31-44E7-A75A-60D3974702A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp.Maui.Services", "WeatherApp.Maui.Services\WeatherApp.Maui.Services.csproj", "{35F284BB-FE35-45AB-BEB7-2FEBD7EAE379}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherApp.Maui.Services", "WeatherApp.Maui.Services\WeatherApp.Maui.Services.csproj", "{35F284BB-FE35-45AB-BEB7-2FEBD7EAE379}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp.Maui.Domain", "WeatherApp.Maui.Domain\WeatherApp.Maui.Domain.csproj", "{9BCFC423-D990-47DC-8F76-4CB4F035CA16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherApp.Maui.Domain", "WeatherApp.Maui.Domain\WeatherApp.Maui.Domain.csproj", "{9BCFC423-D990-47DC-8F76-4CB4F035CA16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp.Models", "WeatherApp.Models\WeatherApp.Models.csproj", "{562AC445-2E9C-4A94-B5F5-D5BEDA4AD0A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherApp.Models", "WeatherApp.Models\WeatherApp.Models.csproj", "{562AC445-2E9C-4A94-B5F5-D5BEDA4AD0A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp.Domain", "WeatherApp.Domain\WeatherApp.Domain.csproj", "{26030E3C-8315-45BC-AA62-481572FE94AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.0 Business", "2.0 Business", "{5065D7F2-517A-4A11-BA16-C5BE060E777B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0 UI", "3.0 UI", "{13B60FB5-AF4B-427C-AC0F-7D18B040F066}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0 Common", "1.0 Common", "{F1568FDC-39A9-454E-9D54-F4B827A3F625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp.Common", "WeatherApp.Common\WeatherApp.Common.csproj", "{8BCAB4D7-473A-4E49-85EA-789A33B909AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,9 +45,25 @@ Global
 		{562AC445-2E9C-4A94-B5F5-D5BEDA4AD0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{562AC445-2E9C-4A94-B5F5-D5BEDA4AD0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{562AC445-2E9C-4A94-B5F5-D5BEDA4AD0A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26030E3C-8315-45BC-AA62-481572FE94AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26030E3C-8315-45BC-AA62-481572FE94AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26030E3C-8315-45BC-AA62-481572FE94AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26030E3C-8315-45BC-AA62-481572FE94AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BCAB4D7-473A-4E49-85EA-789A33B909AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BCAB4D7-473A-4E49-85EA-789A33B909AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BCAB4D7-473A-4E49-85EA-789A33B909AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BCAB4D7-473A-4E49-85EA-789A33B909AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F5FFCEB-FA31-44E7-A75A-60D3974702A2} = {13B60FB5-AF4B-427C-AC0F-7D18B040F066}
+		{35F284BB-FE35-45AB-BEB7-2FEBD7EAE379} = {5065D7F2-517A-4A11-BA16-C5BE060E777B}
+		{9BCFC423-D990-47DC-8F76-4CB4F035CA16} = {5065D7F2-517A-4A11-BA16-C5BE060E777B}
+		{562AC445-2E9C-4A94-B5F5-D5BEDA4AD0A7} = {5065D7F2-517A-4A11-BA16-C5BE060E777B}
+		{26030E3C-8315-45BC-AA62-481572FE94AA} = {5065D7F2-517A-4A11-BA16-C5BE060E777B}
+		{8BCAB4D7-473A-4E49-85EA-789A33B909AA} = {F1568FDC-39A9-454E-9D54-F4B827A3F625}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E0DE2566-BD46-4EB9-A82D-461B12A4EB71}

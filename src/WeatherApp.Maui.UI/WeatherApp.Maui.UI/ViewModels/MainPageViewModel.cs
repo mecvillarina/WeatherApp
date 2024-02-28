@@ -1,50 +1,135 @@
-﻿using WeatherApp.Maui.UI.Services;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Text.Json;
+using WeatherApp.Common.Extensions;
+using WeatherApp.Maui.Domain.Services;
+using WeatherApp.Maui.UI.Models;
+using WeatherApp.Maui.UI.Services;
 
 namespace WeatherApp.Maui.UI.ViewModels;
 
-public class MainPageViewModel : PageViewModelBase
+public partial class MainPageViewModel : PageViewModelBase
 {
-    public MainPageViewModel(BasePageServices baseServices) : base(baseServices)
-    {
-    }
+    private readonly IGeolocation _geolocationService;
+    private readonly IGeocoding _geocodingService;
+    private readonly IPreferences _preferencesService;
+    private readonly IWeatherService _weatherService;
 
     private CancellationTokenSource _cancelTokenSource;
-    private bool _isCheckingLocation;
 
-    public async Task GetCurrentLocation()
+    public MainPageViewModel(BasePageServices baseServices,
+        IGeolocation geolocationService,
+        IGeocoding geocodingService,
+        IPreferences preferencesService,
+        IWeatherService weatherService) : base(baseServices)
+    {
+        _geolocationService = geolocationService;
+        _geocodingService = geocodingService;
+        _preferencesService = preferencesService;
+        _weatherService = weatherService;
+    }
+
+    [ObservableProperty]
+    private PlaceItemModel _currentPlace;
+
+    [ObservableProperty]
+    private List<PlaceItemModel> _otherPlaces;
+
+    private void SavedCurrentLocation(PlaceItemModel place)
+    {
+        _preferencesService.Set("CurrentPlace", JsonSerializer.Serialize(place));
+    }
+
+    private async Task GetCurrentLocationWeather(bool loadCache = true)
     {
         try
         {
-            _isCheckingLocation = true;
+            if (loadCache)
+            {
+                var savedCurrentPlace = _preferencesService.Get<string>("CurrentPlace", null);
+
+                if (savedCurrentPlace != null)
+                {
+                    CurrentPlace = JsonSerializer.Deserialize<PlaceItemModel>(savedCurrentPlace);
+                    return;
+                }
+            }
 
             GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
 
             _cancelTokenSource = new CancellationTokenSource();
 
-            Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
+            Location location = await _geolocationService.GetLocationAsync(request, _cancelTokenSource.Token);
 
-            if (location != null)
-                Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+            IEnumerable<Placemark> placemarks = await _geocodingService.GetPlacemarksAsync(location.Latitude, location.Longitude);
+
+            Placemark placemark = placemarks?.FirstOrDefault();
+
+            CurrentPlace = new PlaceItemModel()
+            {
+                Latitude = location.Latitude,
+                Longitude = location.Longitude,
+                Locality = placemark != null ? placemark.Locality : "",
+                Country = placemark != null ? placemark.CountryName : "Current Location",
+            };
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Unable to get location
         }
         finally
         {
-            _isCheckingLocation = false;
+            if (CurrentPlace == null)
+            {
+                CurrentPlace = new PlaceItemModel()
+                {
+                    Latitude = -33.8678,
+                    Longitude = 151.2073,
+                    Locality = "Sydney",
+                    Country = "Australia",
+                };
+            };
+
+            await GetWeatherAtCurrentLocation();
         }
     }
 
-    public void CancelRequest()
+    private async Task GetWeatherAtCurrentLocation()
     {
-        if (_isCheckingLocation && _cancelTokenSource != null && _cancelTokenSource.IsCancellationRequested == false)
-            _cancelTokenSource.Cancel();
+        try
+        {
+            if (CurrentPlace != null)
+            {
+                var forecast = await _weatherService.GetForecastAsync(CurrentPlace.Latitude, CurrentPlace.Longitude);
+
+                if (forecast != null)
+                {
+                    CurrentPlace.WeatherInfo.TemperatureDisplay = $"{forecast.Temperature2M} {forecast.Temperature2MUnit}";
+                    CurrentPlace.WeatherInfo.WeatherCodeDisplay = WeatherExtensions.GetWeatherCodeDetails(forecast.WeatherCode);
+                    SavedCurrentLocation(CurrentPlace);
+                }
+            }
+        }
+        catch
+        {
+
+        }
+    }
+
+    private async Task PopulateOtherPlaces()
+    {
+        OtherPlaces = new List<PlaceItemModel>()
+        {
+            new PlaceItemModel() { Country = "United Kingdom", Locality = "London", Latitude = 51.509865, Longitude = -0.118092 },
+        };
     }
 
     protected async override void OnNavigatedTo(INavigationParameters parameters)
     {
         base.OnNavigatedTo(parameters);
-        await GetCurrentLocation();
+
+        if (parameters.GetNavigationMode() == Prism.Navigation.NavigationMode.New)
+        {
+            await GetCurrentLocationWeather(true);
+            await PopulateOtherPlaces();
+        }
     }
 }

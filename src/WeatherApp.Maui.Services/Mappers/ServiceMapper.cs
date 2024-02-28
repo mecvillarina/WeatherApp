@@ -1,7 +1,7 @@
 ﻿using MapsterMapper;
-using Poc.Domain.Mappers;
+using WeatherApp.Domain.Mappers;
 
-namespace JTI.Tera.Maui.Services.Mappers;
+namespace WeatherApp.Maui.Services.Mappers;
 
 public class ServiceMapper : IServiceMapper
 {

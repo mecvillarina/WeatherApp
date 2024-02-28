@@ -1,4 +1,4 @@
-﻿namespace Poc.Maui.Services.Web.Helpers;
+﻿namespace WeatherApp.Maui.Services.Web.Helpers;
 
 public static class WebHelpers
 {

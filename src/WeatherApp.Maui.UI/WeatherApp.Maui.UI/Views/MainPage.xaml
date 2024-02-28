@@ -4,6 +4,7 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
                             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+                            xmlns:models="clr-namespace:WeatherApp.Maui.UI.Models"
                             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
                             xmlns:viewmodels="clr-namespace:WeatherApp.Maui.UI.ViewModels"
                             x:DataType="viewmodels:MainPageViewModel"
@@ -33,11 +34,11 @@
                     <VerticalStackLayout>
                         <Label FontFamily="RobotoRegular"
                                FontSize="14"
-                               Text="Current Location"
+                               Text="{Binding CurrentPlace.Country}"
                                TextColor="{StaticResource OnPrimaryContainer}" />
                         <Label FontFamily="RobotoSemibold"
                                FontSize="24"
-                               Text="Manila"
+                               Text="{Binding CurrentPlace.Locality}"
                                TextColor="{StaticResource OnPrimaryContainer}" />
 
                     </VerticalStackLayout>
@@ -45,13 +46,13 @@
                     <Grid VerticalOptions="End">
                         <Label FontFamily="RobotoRegular"
                                FontSize="14"
-                               Text="Thunder"
+                               Text="{Binding CurrentPlace.WeatherInfo.WeatherCodeDisplay}"
                                TextColor="{StaticResource OnPrimaryContainer}" />
 
                         <Label FontFamily="RobotoRegular"
                                FontSize="14"
                                HorizontalOptions="End"
-                               Text="20C"
+                               Text="{Binding CurrentPlace.WeatherInfo.TemperatureDisplay}"
                                TextColor="{StaticResource OnPrimaryContainer}" />
                     </Grid>
 
@@ -66,6 +67,53 @@
             <Label FontFamily="RobotoSemibold"
                    FontSize="16"
                    Text="Around the world" />
+
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding OtherPlaces}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="8"
+                                       Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:PlaceItemModel">
+                        <Border Margin="0"
+                                Padding="12"
+                                BackgroundColor="{StaticResource PrimaryContainer}"
+                                HeightRequest="120"
+                                Stroke="{StaticResource PrimaryContainer}"
+                                StrokeShape="RoundRectangle 20">
+                            <Grid>
+                                <VerticalStackLayout>
+                                    <Label FontFamily="RobotoRegular"
+                                           FontSize="14"
+                                           Text="{Binding Country}"
+                                           TextColor="{StaticResource OnPrimaryContainer}" />
+                                    <Label FontFamily="RobotoSemibold"
+                                           FontSize="24"
+                                           Text="{Binding Locality}"
+                                           TextColor="{StaticResource OnPrimaryContainer}" />
+
+                                </VerticalStackLayout>
+
+                                <Grid VerticalOptions="End">
+                                    <Label FontFamily="RobotoRegular"
+                                           FontSize="14"
+                                           Text="{Binding WeatherInfo.WeatherCodeDisplay}"
+                                           TextColor="{StaticResource OnPrimaryContainer}" />
+
+                                    <Label FontFamily="RobotoRegular"
+                                           FontSize="14"
+                                           HorizontalOptions="End"
+                                           Text="{Binding WeatherInfo.TemperatureDisplay}"
+                                           TextColor="{StaticResource OnPrimaryContainer}" />
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
     </Grid>
 </uranium:UraniumContentPage>
