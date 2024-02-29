@@ -16,34 +16,47 @@ public class WeatherService : IWeatherService
         _weatherRepository = weatherRepository;
     }
 
-    public async Task<WeatherPlace> GetForecastAsync(double latitude, double longitude)
+    public async Task<WeatherPlace> GetCurrentWeather(double latitude, double longitude, bool loadCache)
     {
-        var forecast = await _weatherApi.GetForecastAsync(latitude, longitude);
+        var cachedCurrentWeather = await _weatherRepository.GetWeatherAsync(latitude, longitude);
 
-        if (forecast == null || forecast.CurrentWeather == null)
-            return null;
+        if (loadCache && cachedCurrentWeather != null)
+            return cachedCurrentWeather;
 
-        var weather = await _weatherRepository.GetWeatherAsync(forecast.Latitude, forecast.Longitude);
-
-        if (weather == null)
+        try
         {
-            weather = new WeatherPlace();
+            var currentWeather = await _weatherApi.GetForecastAsync(latitude, longitude);
+
+            if (currentWeather == null || currentWeather.CurrentWeather == null)
+                return null;
+
+            var weatherPlace = await _weatherRepository.GetWeatherAsync(latitude, longitude);
+
+            if (weatherPlace == null)
+            {
+                weatherPlace = new WeatherPlace();
+            }
+
+            weatherPlace.Latitude = latitude;
+            weatherPlace.Longitude = longitude;
+            weatherPlace.Temperature2M = currentWeather.CurrentWeather.Temperature2M;
+            weatherPlace.Temperature2MUnit = currentWeather.CurrentWeatherUnit.Temperature2M;
+            weatherPlace.RelativeHumidity2M = currentWeather.CurrentWeather.RelativeHumidity2M;
+            weatherPlace.RelativeHumidity2MUnit = currentWeather.CurrentWeatherUnit.RelativeHumidity2M;
+            weatherPlace.Precipitation = currentWeather.CurrentWeather.Precipitation;
+            weatherPlace.PrecipitationUnit = currentWeather.CurrentWeatherUnit.Precipitation;
+            weatherPlace.IsDay = currentWeather.CurrentWeather.IsDay;
+            weatherPlace.WeatherCode = currentWeather.CurrentWeather.WeatherCode;
+
+            await _weatherRepository.SaveWeatherAsync(weatherPlace);
+
+            return weatherPlace;
+        }
+        catch
+        {
+
         }
 
-        weather.Latitude = latitude;
-        weather.Longitude = longitude;
-        weather.Temperature2M = forecast.CurrentWeather.Temperature2M;
-        weather.Temperature2MUnit = forecast.CurrentWeatherUnit.Temperature2M;
-        weather.RelativeHumidity2M = forecast.CurrentWeather.RelativeHumidity2M;
-        weather.RelativeHumidity2MUnit = forecast.CurrentWeatherUnit.RelativeHumidity2M;
-        weather.Precipitation = forecast.CurrentWeather.Precipitation;
-        weather.PrecipitationUnit = forecast.CurrentWeatherUnit.Precipitation;
-        weather.IsDay = forecast.CurrentWeather.IsDay;
-        weather.WeatherCode = forecast.CurrentWeather.WeatherCode;
-
-        await _weatherRepository.SaveWeatherAsync(weather);
-
-        return weather;
-
+        return null;
     }
 }

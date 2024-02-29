@@ -11,4 +11,7 @@ public partial class PlaceWeatherInfoModel : ObservableObject
     [ObservableProperty]
     private string _weatherCodeDisplay;
 
+    [ObservableProperty]
+    private string _weatherCodeIcon;
+
 }

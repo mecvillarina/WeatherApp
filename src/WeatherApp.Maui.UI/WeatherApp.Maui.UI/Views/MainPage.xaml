@@ -14,14 +14,32 @@
     <Grid Padding="20"
           RowDefinitions="Auto,Auto,*"
           RowSpacing="12">
-        <VerticalStackLayout Spacing="4">
-            <Label FontFamily="RobotoSemibold"
-                   FontSize="16"
-                   Text="Hello Human," />
-            <Label FontFamily="RobotoSemibold"
-                   FontSize="16"
-                   Text="Discover the weather" />
-        </VerticalStackLayout>
+
+        <Grid>
+            <VerticalStackLayout Spacing="4"
+                                 VerticalOptions="Start">
+                <Label FontFamily="RobotoSemibold"
+                       FontSize="16"
+                       Text="Hello Human," />
+                <Label FontFamily="RobotoSemibold"
+                       FontSize="16"
+                       Text="Discover the weather" />
+            </VerticalStackLayout>
+
+            <Image HeightRequest="20"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   WidthRequest="20">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RefreshCommand}" />
+                </Image.GestureRecognizers>
+                <Image.Source>
+                    <FontImageSource FontFamily="MaterialRegular"
+                                     Glyph="{x:Static m:MaterialRegular.Refresh}"
+                                     Color="{StaticResource Gray600}" />
+                </Image.Source>
+            </Image>
+        </Grid>
 
         <VerticalStackLayout Grid.Row="1">
             <Border Margin="0"
@@ -31,7 +49,7 @@
                     Stroke="{StaticResource PrimaryContainer}"
                     StrokeShape="RoundRectangle 20">
                 <Grid>
-                    <VerticalStackLayout>
+                    <VerticalStackLayout VerticalOptions="Start">
                         <Label FontFamily="RobotoRegular"
                                FontSize="14"
                                Text="{Binding CurrentPlace.Country}"
@@ -41,6 +59,14 @@
                                Text="{Binding CurrentPlace.Locality}"
                                TextColor="{StaticResource OnPrimaryContainer}" />
 
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout HorizontalOptions="End"
+                                         VerticalOptions="Start">
+                        <Image Aspect="AspectFit"
+                               HeightRequest="50"
+                               Source="{Binding CurrentPlace.WeatherInfo.WeatherCodeIcon}"
+                               WidthRequest="50" />
                     </VerticalStackLayout>
 
                     <Grid VerticalOptions="End">
@@ -68,12 +94,10 @@
                    FontSize="16"
                    Text="Around the world" />
 
-            <CollectionView Grid.Row="1"
-                            ItemsSource="{Binding OtherPlaces}">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="8"
-                                       Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
+            <CollectionView x:Name="OtherPlaceCollectionView"
+                            Grid.Row="1"
+                            ItemsSource="{Binding OtherPlaces}"
+                            VerticalScrollBarVisibility="Never">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:PlaceItemModel">
@@ -84,7 +108,7 @@
                                 Stroke="{StaticResource PrimaryContainer}"
                                 StrokeShape="RoundRectangle 20">
                             <Grid>
-                                <VerticalStackLayout>
+                                <VerticalStackLayout VerticalOptions="Start">
                                     <Label FontFamily="RobotoRegular"
                                            FontSize="14"
                                            Text="{Binding Country}"
@@ -94,6 +118,14 @@
                                            Text="{Binding Locality}"
                                            TextColor="{StaticResource OnPrimaryContainer}" />
 
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout HorizontalOptions="End"
+                                                     VerticalOptions="Start">
+                                    <Image Aspect="AspectFit"
+                                           HeightRequest="50"
+                                           Source="{Binding CurrentPlace.WeatherInfo.WeatherCodeIcon}"
+                                           WidthRequest="50" />
                                 </VerticalStackLayout>
 
                                 <Grid VerticalOptions="End">

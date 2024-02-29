@@ -4,5 +4,5 @@ namespace WeatherApp.Maui.Domain.Services;
 
 public interface IWeatherService
 {
-    Task<WeatherPlace> GetForecastAsync(double latitude, double longitude);
+    Task<WeatherPlace> GetCurrentWeather(double latitude, double longitude, bool loadCache);
 }
